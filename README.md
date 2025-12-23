@@ -1,0 +1,594 @@
+markdown
+# 🎭 AI配音工厂 - 超强嘴炮版 3.4.0
+
+## 📖 项目概述
+
+**AI配音工厂**是一个集成了AI语音生成、语音风格转换和ComfyUI人物一致性动画生成的综合性创作工具。系统能够将日语动画自动翻译成中文，并替换为各种"嘴炮王者"风格的配音，同时还可以生成具有人物一致性的AI动画。
+
+## ✨ 核心特性
+
+| 功能 | 描述 |
+|------|------|
+| 🤖 AI驱动动画生成 | 集成ComfyUI进行人物一致性生成 |
+| 🎭 人物绑定系统 | 将配音角色与视觉角色绑定 |
+| 👄 自动口型同步 | 音素分析和视位素映射 |
+| 👁️ 动态表情系统 | 支持头部、眼部、身体动作 |
+| 🎨 多风格支持 | 动漫、电影、卡通、写实等风格 |
+
+## 🚀 快速开始
+
+### 系统要求
+
+- **Python**: 3.8或更高版本
+- **操作系统**: Windows 10/11, macOS 10.15+, Ubuntu 18.04+
+- **内存**: 至少8GB RAM
+- **GPU**: NVIDIA GPU（推荐，用于加速处理）
+- **硬盘空间**: 至少10GB可用空间
+
+### 安装步骤
+
+#### 1. 克隆或下载项目
+
+```bash
+git clone <项目仓库地址>
+cd dubbing_factory
+2. 安装依赖
+bash
+# 使用pip安装
+pip install -r requirements.txt
+
+# 或者逐个安装主要依赖
+pip install torch torchaudio
+pip install openai-whisper
+pip install librosa soundfile
+pip install ffmpeg-python
+pip install opencv-python
+pip install PySide6
+pip install aiohttp
+pip install requests
+pip install scipy
+pip install numpy
+3. 安装必要的外部工具
+FFmpeg（必须）：
+
+Windows: 从 https://ffmpeg.org/download.html 下载，将ffmpeg.exe添加到系统PATH
+
+macOS: brew install ffmpeg
+
+Ubuntu: sudo apt install ffmpeg
+
+Ollama（用于翻译）：
+
+bash
+# 访问 https://ollama.com/ 下载并安装
+ollama serve
+ollama pull qwen3:4b
+🔧 服务配置
+必需的服务
+1. TTS语音生成服务
+bash
+# 确保TTS服务运行在端口5021
+python api.py --port 5021
+2. Ollama翻译服务
+bash
+# 确保Ollama运行在默认端口11434
+ollama serve
+3. ComfyUI服务（可选，用于动画生成）
+bash
+# 运行ComfyUI在端口8188
+python main.py --port 8188
+服务状态检查
+使用内置的诊断功能检查服务状态：
+
+bash
+# 检查Ollama
+curl http://127.0.0.1:11434/api/tags
+
+# 检查ComfyUI
+curl http://127.0.0.1:8188
+
+# 检查TTS服务
+curl -X POST http://127.0.0.1:5021/api/tts \
+  -H "Content-Type: application/json" \
+  -d '{"tts_text":"测试"}'
+📁 文件结构
+text
+AI配音工厂/
+├── main.py                    # 主程序入口
+├── unified_comfyui_client.py  # ComfyUI客户端
+├── requirements.txt           # 依赖列表
+├── config.json               # 配置文件
+├── voices/                   # 音色文件目录
+│   ├── doraemon.wav         # 哆啦A梦音色
+│   ├── nobita.wav           # 大雄音色
+│   └── ...
+├── characters/               # 角色参考图片目录
+│   ├── doraemon_ref.jpg     # 哆啦A梦参考图
+│   └── ...
+├── ai_animation_output/      # 动画输出目录
+├── temp/                     # 临时文件目录
+└── dubbing_factory.log      # 日志文件
+🎮 使用教程
+1. 首次运行
+启动所有服务
+
+启动Ollama: ollama serve
+
+启动TTS: python api.py --port 5021
+
+（可选）启动ComfyUI: python main.py --port 8188
+
+运行主程序
+
+bash
+python main.py
+配置API设置
+
+在"设置"标签页测试Ollama和TTS连接
+
+确保所有服务连接正常
+
+2. 配音处理流程
+步骤1: 选择视频文件
+点击"浏览..."选择输入视频
+
+系统会自动生成输出路径
+
+步骤2: 配置角色
+在"角色"标签页配置每个角色的音色和风格
+
+预设角色包括：
+
+哆啦A梦 → 李云龙风格
+
+大雄 → 王境泽风格
+
+静香 → 佟湘玉风格
+
+胖虎 → 张飞风格
+
+小夫 → 马保国风格
+
+步骤3: 开始处理
+点击"开始处理"按钮
+
+系统将自动进行：
+
+提取音频
+
+语音识别（日语→文本）
+
+文本翻译（日语→中文）
+
+风格转换（普通→嘴炮风格）
+
+语音生成
+
+音频混合
+
+视频合成
+
+步骤4: 查看结果
+处理完成后，配音视频保存在输出路径
+
+可以立即播放或打开所在文件夹
+
+3. AI动画生成流程
+步骤1: 连接ComfyUI
+在"动画生成"标签页点击"连接ComfyUI"
+
+确保ComfyUI服务器正在运行
+
+步骤2: 绑定角色
+点击"自动绑定角色"将配音角色与动画角色绑定
+
+为每个角色选择参考图片
+
+步骤3: 配置动画参数
+设置分辨率（推荐512×768）
+
+选择动画风格（动漫/电影/卡通等）
+
+配置一致性方法（IP-Adapter/InstantID等）
+
+设置场景描述
+
+步骤4: 生成动画
+点击"生成动画"按钮
+
+系统将自动生成：
+
+分析剧本
+
+生成动画提示词
+
+ComfyUI生成帧序列
+
+合成动画视频
+
+⚙️ 配置详解
+配置文件（config.json）
+json
+{
+  "last_input_video": "上次使用的视频路径",
+  "last_output_path": "上次的输出路径",
+  "tts_api": "http://127.0.0.1:5021/api/tts",
+  "ollama_api": "http://127.0.0.1:11434",
+  "whisper_model": "large-v3",
+  "translate_model": "qwen3:4b",
+  "lip_sync_enabled": true,
+  "character_profiles": {
+    "哆啦A梦": {
+      "name": "哆啦A梦",
+      "original_name": "ドラえもん",
+      "voice_style": "李云龙",
+      "voice_file": "voices/doraemon.wav",
+      "speed": 1.2,
+      "pitch": 1.1,
+      "emotion": "aggressive",
+      "intensity": 1.5,
+      "catchphrases": ["他娘的", "老子", "这仗怎么打"],
+      "reference_image": "characters/doraemon_ref.jpg"
+    }
+  }
+}
+角色配置文件
+每个角色包含以下配置：
+
+name: 角色名称
+
+original_name: 原版名称（日文）
+
+voice_style: 语音风格（李云龙/王境泽等）
+
+voice_file: 音色文件路径
+
+speed: 语速（0.5-2.0）
+
+pitch: 音高（0.5-2.0）
+
+emotion: 情感状态
+
+intensity: 强度（0.5-2.0）
+
+catchphrases: 口头禅列表
+
+reference_image: 动画参考图片
+
+🔍 故障排除
+常见问题
+1. 无法连接到Ollama
+text
+❌ 错误：无法连接到Ollama服务
+✅ 解决方案：
+1. 确保Ollama已安装：ollama --version
+2. 启动Ollama服务：ollama serve
+3. 检查端口：netstat -an | findstr 11434
+4. 测试连接：curl http://127.0.0.1:11434/api/tags
+2. TTS服务连接失败
+text
+❌ 错误：TTS API连接失败
+✅ 解决方案：
+1. 确保TTS服务已启动：python api.py --port 5021
+2. 检查防火墙设置
+3. 测试API：curl -X POST http://127.0.0.1:5021/api/tts ...
+3. ComfyUI连接问题
+text
+❌ 错误：无法连接到ComfyUI
+✅ 解决方案：
+1. 启动ComfyUI：python main.py --port 8188
+2. 检查ComfyUI节点是否齐全
+3. 确保安装了必要的自定义节点
+4. 内存不足错误
+text
+❌ 错误：CUDA out of memory
+✅ 解决方案：
+1. 降低批次大小
+2. 使用较小的模型
+3. 关闭其他GPU应用程序
+4. 使用CPU模式（性能降低）
+5. FFmpeg错误
+text
+❌ 错误：FFmpeg未找到
+✅ 解决方案：
+1. 下载并安装FFmpeg
+2. 将ffmpeg添加到系统PATH
+3. 重启命令行或应用程序
+调试方法
+查看日志文件
+
+bash
+tail -f dubbing_factory.log
+启用调试模式
+
+python
+# 在代码开头添加
+import logging
+logging.basicConfig(level=logging.DEBUG)
+检查依赖版本
+
+bash
+pip list | grep -E "(torch|whisper|librosa|opencv)"
+🎨 高级功能
+自定义语音风格
+在DubbingEngine类中添加自定义风格：
+
+python
+def _apply_custom_style(self, text: str) -> str:
+    """自定义语音风格"""
+    replacements = {
+        "我": "本大爷",
+        "你": "你小子",
+        "真的": "真滴假滴",
+        "好": "好得很"
+    }
+    
+    result = text
+    for orig, repl in replacements.items():
+        result = result.replace(orig, repl)
+    
+    return result
+创建自定义角色
+python
+# 创建新角色配置
+new_character = CharacterProfile(
+    name="自定义角色",
+    original_name="カスタムキャラ",
+    voice_style=VoiceStyle.CUSTOM,
+    voice_file="voices/custom.wav",
+    speed=1.0,
+    pitch=1.0,
+    emotion="neutral",
+    intensity=1.0,
+    catchphrases=["自定义口头禅", "特色用语"]
+)
+
+# 添加到引擎
+engine.add_character_profile(new_character)
+批量处理脚本
+python
+import asyncio
+from main import DubbingEngine, ProcessingConfig
+
+async def batch_process_videos(video_paths):
+    """批量处理多个视频"""
+    config = ProcessingConfig()
+    engine = DubbingEngine(config)
+    
+    results = []
+    for video_path in video_paths:
+        print(f"处理: {video_path}")
+        try:
+            output = await engine.process_episode_optimized(video_path)
+            results.append((video_path, output, "成功"))
+        except Exception as e:
+            results.append((video_path, None, str(e)))
+    
+    return results
+
+# 使用示例
+videos = ["video1.mp4", "video2.mp4", "video3.mp4"]
+asyncio.run(batch_process_videos(videos))
+📊 性能优化
+GPU加速配置
+python
+# 启用GPU加速
+config = ProcessingConfig(
+    use_gpu=True,
+    gpu_id=0,  # 使用第一块GPU
+    batch_size=4  # 根据显存调整
+)
+内存优化
+降低批次大小
+
+python
+config.batch_size = 2  # 减少显存使用
+使用较小模型
+
+python
+config.whisper_model = "medium"  # 使用中型模型
+启用缓存
+
+python
+config.cache_enabled = True
+config.cache_dir = "cache"
+并行处理
+python
+# 增加并行线程数
+config.num_workers = 8  # 根据CPU核心数调整
+
+# 调整批次大小
+config.translation_batch_size = 20  # 翻译批次
+config.tts_batch_size = 5  # TTS批次
+🔗 API接口
+配音引擎API
+python
+# 创建引擎实例
+engine = DubbingEngine(config)
+
+# 添加角色
+engine.add_character_profile(character_profile)
+
+# 处理单个视频
+result = engine.process_episode_optimized("input.mp4")
+
+# 批量处理
+results = engine.batch_process(["video1.mp4", "video2.mp4"])
+动画生成API
+python
+# 创建动画生成器
+generator = AIAnimationGenerator(config)
+
+# 添加角色
+generator.add_character(character_model)
+
+# 生成动画
+animation = await generator.generate_complete_animation("script.txt")
+REST API（可选）
+python
+from fastapi import FastAPI
+from main import DubbingEngine
+
+app = FastAPI()
+engine = DubbingEngine()
+
+@app.post("/api/dubbing")
+async def create_dubbing(request: DubbingRequest):
+    """创建配音"""
+    result = await engine.process(request.video_path)
+    return {"status": "success", "output": result}
+
+@app.get("/api/status")
+async def get_status():
+    """获取系统状态"""
+    return {
+        "ollama": check_service("http://127.0.0.1:11434"),
+        "tts": check_service("http://127.0.0.1:5021"),
+        "comfyui": check_service("http://127.0.0.1:8188")
+    }
+📝 开发指南
+项目结构说明
+text
+src/
+├── core/                    # 核心引擎
+│   ├── dubbing_engine.py   # 配音引擎
+│   ├── animation_generator.py  # 动画生成器
+│   └── models.py           # 数据模型
+├── gui/                    # 图形界面
+│   ├── main_window.py      # 主窗口
+│   ├── dialogs.py          # 对话框
+│   └── widgets.py          # 自定义控件
+├── services/               # 服务层
+│   ├── tts_service.py      # TTS服务
+│   ├── translation_service.py  # 翻译服务
+│   └── comfyui_service.py  # ComfyUI服务
+└── utils/                  # 工具函数
+    ├── audio_utils.py      # 音频处理
+    ├── video_utils.py      # 视频处理
+    └── logger.py           # 日志系统
+扩展新功能
+1. 添加新的语音风格
+python
+class VoiceStyle(Enum):
+    CUSTOM_STYLE = "自定义风格"  # 添加新枚举
+
+def _apply_custom_style(self, text: str) -> str:
+    """实现新的风格转换逻辑"""
+    # 自定义转换规则
+    return transformed_text
+2. 集成新的AI模型
+python
+class NewAIModel:
+    def __init__(self, config):
+        self.config = config
+        
+    async def process(self, input_data):
+        """处理输入数据"""
+        # 实现新的AI处理逻辑
+        return result
+3. 添加新的输出格式
+python
+class OutputFormatter:
+    def __init__(self, format_type):
+        self.format_type = format_type
+        
+    def format(self, data):
+        if self.format_type == "json":
+            return self._to_json(data)
+        elif self.format_type == "xml":
+            return self._to_xml(data)
+        # 添加新格式
+🐛 已知问题
+内存泄漏问题
+
+长时间运行可能导致内存增加
+
+定期重启服务可以缓解
+
+ComfyUI节点兼容性
+
+需要特定的自定义节点
+
+不同版本可能不兼容
+
+大型视频处理
+
+处理超长视频可能需要大量内存
+
+建议分割为片段处理
+
+多语言支持
+
+其他语言需要额外配置
+
+🔄 更新日志
+v3.4.0 (当前版本)
+✅ 集成ComfyUI人物一致性动画生成
+
+✅ 新增动画生成标签页
+
+✅ 支持角色绑定和参考图片
+
+✅ 口型同步和表情动画
+
+✅ 多种动画风格支持
+
+v3.3.0
+✅ 优化口型对齐算法
+
+✅ 改进音频混合质量
+
+✅ 增强错误处理
+
+✅ 添加批量处理功能
+
+v3.2.0
+✅ 集成Ollama翻译服务
+
+✅ 支持多种语音风格
+
+✅ 添加角色配置系统
+
+✅ 优化GUI界面
+
+📞 支持与贡献
+报告问题
+查看已知问题
+
+检查日志文件 dubbing_factory.log
+
+提供复现步骤和环境信息
+
+贡献代码
+Fork项目仓库
+
+创建功能分支
+
+提交Pull Request
+
+确保代码符合规范
+
+联系方式
+项目主页: [GitHub仓库地址]
+
+问题追踪: [Issues页面]
+
+文档Wiki: [Wiki页面]
+
+📄 许可证
+本项目采用MIT许可证。详见LICENSE文件。
+
+🙏 致谢
+OpenAI Whisper - 语音识别
+
+Ollama - 本地大语言模型
+
+ComfyUI - Stable Diffusion工作流
+
+FFmpeg - 音视频处理
+
+所有开源贡献者
+
+🎯 提示: 首次使用建议从简单的视频开始测试，逐步熟悉系统功能。如有问题，请参考故障排除部分或提交Issue。
+
+🚀 祝您创作愉快！
