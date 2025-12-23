@@ -1,0 +1,10 @@
+{
+  "iflow_api_key": "",
+  "comfyui_host": "127.0.0.1",
+  "comfyui_port": 8188,
+  "image_generation_api": "comfyui",
+  "image_width": 512,
+  "image_height": 768,
+  "image_style": "anime",
+  "characters": []
+}

@@ -1,0 +1,132 @@
+{
+  "characters": [
+    {
+      "name": "哆啦A梦",
+      "original_name": "ドラえもん",
+      "voice_style": "李云龙",
+      "voice_file": "voices\\李云龙.WAV",
+      "speed": 1.01,
+      "pitch": 1.1,
+      "emotion": "neutral",
+      "intensity": 0.99,
+      "catchphrases": [
+        "他娘的",
+        "老子",
+        "这仗怎么打",
+        "真他娘的痛快"
+      ]
+    },
+    {
+      "name": "大雄",
+      "original_name": "野比のび太",
+      "voice_style": "王境泽",
+      "voice_file": "voices\\鬼子.wav",
+      "speed": 1.0,
+      "pitch": 0.9,
+      "emotion": "neutral",
+      "intensity": 0.98,
+      "catchphrases": [
+        "真香",
+        "我王境泽就是饿死",
+        "哎呀妈呀",
+        "这不可能"
+      ]
+    },
+    {
+      "name": "静香",
+      "original_name": "源静香",
+      "voice_style": "佟湘玉",
+      "voice_file": "voices\\女-温柔、姐姐.wav",
+      "speed": 0.98,
+      "pitch": 1.2,
+      "emotion": "neutral",
+      "intensity": 1.04,
+      "catchphrases": [
+        "额滴神啊",
+        "我好后悔呀",
+        "这是为你好",
+        "你听我说"
+      ]
+    },
+    {
+      "name": "胖虎",
+      "original_name": "剛田武",
+      "voice_style": "张飞",
+      "voice_file": "voices\\佩奇.wav",
+      "speed": 1.02,
+      "pitch": 0.99,
+      "emotion": "angry",
+      "intensity": 0.99,
+      "catchphrases": [
+        "俺也一样",
+        "燕人张飞在此",
+        "哇呀呀呀",
+        "拿命来"
+      ]
+    },
+    {
+      "name": "小夫",
+      "original_name": "骨川スネ夫",
+      "voice_style": "马保国",
+      "voice_file": "voices\\男-莽撞、纨绔、.wav",
+      "speed": 1.04,
+      "pitch": 1.0,
+      "emotion": "neutral",
+      "intensity": 0.99,
+      "catchphrases": [
+        "年轻人不讲武德",
+        "我大意了啊",
+        "耗子尾汁",
+        "接化发"
+      ]
+    },
+    {
+      "name": "哆啦美",
+      "original_name": "ドラミ",
+      "voice_style": "罗翔",
+      "voice_file": "voices\\女-明亮、坚定自信、师姐.wav",
+      "speed": 0.97,
+      "pitch": 1.3,
+      "emotion": "neutral",
+      "intensity": 1.02,
+      "catchphrases": [
+        "张三又来了",
+        "这是违法行为",
+        "根据刑法",
+        "法治社会"
+      ]
+    },
+    {
+      "name": "出木杉",
+      "original_name": "出木杉英才",
+      "voice_style": "谢尔顿",
+      "voice_file": "voices\\女-常规-绘声绘色.wav",
+      "speed": 1.0,
+      "pitch": 1.0,
+      "emotion": "neutral",
+      "intensity": 1.03,
+      "catchphrases": [
+        "Bazinga",
+        "我早说过了",
+        "这很明显",
+        "根据我的计算"
+      ]
+    },
+    {
+      "name": "小叮当",
+      "original_name": "",
+      "voice_style": "郭德纲",
+      "voice_file": "voices\\曹操.WAV",
+      "speed": 0.97,
+      "pitch": 1.1,
+      "emotion": "neutral",
+      "intensity": 0.97,
+      "catchphrases": [
+        "于谦的父亲",
+        "相声讲究说学逗唱",
+        "我字系列",
+        "你要考研啊"
+      ]
+    }
+  ]
+}
